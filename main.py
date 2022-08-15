@@ -42,8 +42,8 @@ def buildWeaponProfileForTesting():
     print("Lets build the weapons profile")
     print()
     weapon["name"] = "Test Cannon"
-    weapon["bs"] = 4
-    weapon["shots"] = 3
+    weapon["bs"] = 3
+    weapon["shots"] =3
     weapon["strength"] = 14
     weapon["damage"] = "d6+4"
     weapon["ap"] = 4
@@ -151,8 +151,9 @@ actualSave = adjustSave(tg["save"], tg["invun"], wp["ap"])
 damage = 0
 y = 1
 ave = []
-for _ in range(1,1000):
+for _ in range(1,10000):
     y = 1
+    damage = 0
     while damage < 24:
     # for _ in range(1,20):
         hits = rollDice(int(wp["shots"]), int(wp["bs"]))
@@ -162,17 +163,20 @@ for _ in range(1,1000):
 
         if fails >= 1:
             for x in range (1, fails):
-                damage += multipleDamage(wp["damage"])
+                damage += int(multipleDamage(wp["damage"]))
+
         y += 1
 
-        print(f"{hits} hits, {wounds} wounds, {saves} saves & {damage} damage")
-        print()
-    print(f"It took {y} attemts to kill " + tg["name"])
+        # print(f"{hits} hits, {wounds} wounds, {saves} saves & {damage} damage")
+        # print()
 
     ave.append(y)
 
-print("On average, a " + wp["name"] + " will one shot a " + tg["name"] + f" every 1 in {sum(ave) / len(ave)} times")
+    #print(f"It took {y} attemts to kill " + tg["name"])
 
+
+print(ave)
+print("On average, a " + wp["name"] + " will one shot a " + tg["name"] + f" every 1 in {sum(ave) / len(ave)} times")
 
 
 
